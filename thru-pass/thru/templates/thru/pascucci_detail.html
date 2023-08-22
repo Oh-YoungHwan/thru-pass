@@ -1,0 +1,18 @@
+{% extends "thru/thru_detail.html" %}
+{% block main_area %}
+<div class = "container">
+    <div class="row">
+        {% for i in pascucci %}
+            <div class="card col-6">
+                <div class="card-body">
+                    <h5 class="card-title">매장명 : {{ i.name }}</h5>
+                    <p class="card-text">위치 : {{ i.addr1 }}</p>
+                    <p class="card-text">전화번호 : {{ i.phone }}</p>
+                    <p class="card-text">별점 : {{ i.star }}</p>
+                    <a href="#" class="btn btn-primary">상세보기</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
