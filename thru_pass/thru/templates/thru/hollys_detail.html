@@ -36,22 +36,22 @@
   transform: translateX(-50%) translateY(-50%);
 }
 </style>
-    {% for m in mcdo %}
+    {% for h in hollys %}
 
     <div class="modal">
         <div class="modal_body">
-            <p>{{ m.name }}</p>
+            <p>{{ h.name }}</p>
         </div>
     </div>
         <div class="card col-6">
             <div class="card-body">
                 <h2>매장 정보</h2>
-                <p>매장명: {{ m.name }}</p>
-                <p>위치: {{ m.addr1 }}</p>
-                <p>전화번호: {{ m.phone }} 별점: {{ m.star }}</p>
+                <p>매장명: {{ h.name }}</p>
+                <p>위치: {{ h.addr1 }}</p>
+                <p>전화번호: {{ h.phone }} 별점: {{ h.star }}</p>
                 <button class="btn btn-primary btn-detail"
-                        data-lat="{{ m.addrx }}" data-lng="{{ m.addry }}"
-                        data-name="{{ m.name }}" data-addr1="{{ m.addr1 }}" data-phone="{{ m.phone }}">상세보기</button>
+                        data-lat="{{ h.addrx }}" data-lng="{{ h.addry }}"
+                        data-name="{{ h.name }}" data-addr1="{{ h.addr1 }}" data-phone="{{ h.phone }}">상세보기</button>
                 <button class="btn-open-popup">모달</button>
             </div>
         </div>
@@ -65,18 +65,18 @@
 
 <div class="pagination">
     <span class="step-links">
-        {% if mcdo.has_previous %}
+        {% if hollys.has_previous %}
             <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ mcdo.previous_page_number }}">previous</a>
+            <a href="?page={{ hollys.previous_page_number }}">previous</a>
         {% endif %}
 
         <span class="current-page">
-            Page {{ mcdo.number }} of {{ mcdo.paginator.num_pages }}.
+            Page {{ hollys.number }} of {{ hollys.paginator.num_pages }}.
         </span>
 
-        {% if mcdo.has_next %}
-            <a href="?page={{ mcdo.next_page_number }}">next</a>
-            <a href="?page={{ mcdo.paginator.num_pages }}">last &raquo;</a>
+        {% if hollys.has_next %}
+            <a href="?page={{ hollys.next_page_number }}">next</a>
+            <a href="?page={{ hollys.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
 </div>
