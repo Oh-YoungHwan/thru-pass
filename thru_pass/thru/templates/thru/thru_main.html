@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %} <!-- 저장된 사진 올리기-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +13,7 @@
         .car-icon {
             position: absolute;
             left: -100px;
-            bottom: -446px;
+            bottom: -500px;
             width: 24px;
             height: 24px;
             animation: drive 3s linear infinite;
@@ -35,50 +36,95 @@
         .text-center{
             margin-top:20px;
         }
+        .relative{
+
+     position: relative;
+
+     background-color: orange;
+
+     top: 200px;
+
+     left: 200px;
+
+ }
     </style>
 </head>
-<body>
-    <div class="container my-5">
+
+<body style="background-image:url('https://api6.card-gorilla.com:8080/storage/post/1521/contents/10119/news_135_1.jpg');
+             background-repeat :no-repeat;
+             background-size : 70%;
+             background-position : top left;">
+<div class="container text-center">
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-5 mx-4">
             <h1 class="text-center mb-4 mt-5"><b>THRU-PASS</b></h1>
-            <div class="mt-5">
-                <div class="container input-group mb-4 justify-content-center align-items-center position-relative">
-                    <div class="car-icon">
-                        <a target='_blank'><img src='https://ifh.cc/g/XHYxAf.png' border='0' width="60px"></a>
-                    </div>
+            <div class="container input-group mb-0 justify-content-center align-items-center position-relative">
+                <div class="car-icon">
+                    <a target='_blank'><img src='https://ifh.cc/g/XHYxAf.png' border='0' width="60px"></a>
                 </div>
-                <div class="button-container text-center mt-10">
-                    <button class="btn btn-outline-primary show-list-button" data-bs-target="#item-list-1" aria-expanded="false">카페</button>
-                    <button class="btn btn-outline-primary show-list-button" data-bs-target="#item-list-2" aria-expanded="false">패스트푸드</button>
-                    <button class="btn btn-outline-primary show-list-button" data-bs-target="#item-list-3" aria-expanded="false">리스트 3 보기</button>
+            </div>
+        </div>
+        <div class="col-3 mt-5 mx-4" style="float: right; ">
+            <div class="card" style="width: 21rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><b> 패스트푸드 </b></h5>
+                    <button class="btn btn-primary show-list-button" data-bs-target="#item-list-1" aria-expanded="false" style="background-color:white; border:none;">
+                        <img src="{% static 'img/img01.png' %}" style="width:60px; height:60px"/>
+                    </button>
+                    <button class="btn btn-primary show-list-button" data-bs-target="#item-list-1" aria-expanded="false" style="background-color:white; border:none;">
+                        <img src="{% static 'img/img02.png' %}" style="width:60px; height:60px"/>
+                    </button>
+                    <button class="btn btn-primary show-list-button" data-bs-target="#item-list-1" aria-expanded="false" style="background-color:white; border:none;">
+                        <img src="{% static 'img/img03.png' %}" style="width:60px; height:60px"/>
+                    </button>
                 </div>
-                <div class="container text-center col-md-4">
-                    <div class="collapse" id="item-list-1">
-                        <div class="list-group">
-                            <a href="/starbucks/" class="list-group-item list-group-item-action">Starbucks</a>
-                            <a href="/pascucci/" class="list-group-item list-group-item-action">Pascucci</a>
-                            <a href="/twosome/" class="list-group-item list-group-item-action">Twosome</a>
-                            <a href="/twosome/" class="list-group-item list-group-item-action">Ediya</a>
-                            <a href="/twosome/" class="list-group-item list-group-item-action">Hollys</a>
-                            <a href="/twosome/" class="list-group-item list-group-item-action">Angelinus</a>
-                        </div>
-                    </div>
-                    <div class="collapse" id="item-list-2">
-                        <div class="list-group">
-                            <a href="/burgerking/" class="list-group-item list-group-item-action">버거킹</a>
-                            <a href="#" class="list-group-item list-group-item-action">맥도날드</a>
-                            <a href="#" class="list-group-item list-group-item-action">롯데리아</a>
-                            <a href="#" class="list-group-item list-group-item-action">KFC</a>
-                        </div>
-                    </div>
-                    <div class="collapse" id="item-list-3">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item list-group-item-action">리스트 3 아이템 1</a>
-                            <a href="#" class="list-group-item list-group-item-action">리스트 3 아이템 2</a>
-                            <a href="#" class="list-group-item list-group-item-action">리스트 3 아이템 3</a>
-                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center">
+    <div class="row">
+        <div class="col-3 "></div>
+        <div class="col-5 mx-4"></div>
+        <div class="col-3 mx-4" style="float: right;">
+         <div class="card" style="width: 21rem;">
+                <div class="card-body">
+                    <h5 class="card-title"><b> 카페 </b></h5>
+                       <button class="btn btn-primary show-list-button" data-bs-target="#item-list-1" aria-expanded="false" style="background-color:white; border:none;">
+                            <img src="{% static 'img/img04.png' %}" style="width:60px; height:60px"/>
+                       </button>
+                       <button class="btn btn-primary show-list-button" data-bs-target="#item-list-1" aria-expanded="false" style="background-color:white; border:none;">
+                            <img src="{% static 'img/img05.png' %}" style="width:60px; height:60px"/>
+                       </button>
+                       <button class="btn btn-primary show-list-button" data-bs-target="#item-list-1" aria-expanded="false" style="background-color:white; border:none;">
+                            <img src="{% static 'img/img06.png' %}" style="width:60px; height:60px"/>
+                       </button>
+                       <button class="btn btn-primary show-list-button" data-bs-target="#item-list-1" aria-expanded="false" style="background-color:white; border:none;">
+                            <img src="{% static 'img/img07.png' %}" style="width:60px; height:60px"/>
+                       </button>
+                        <button class="btn btn-primary show-list-button" data-bs-target="#item-list-1" aria-expanded="false" style="background-color:white; border:none;">
+                            <img src="{% static 'img/img08.png' %}" style="width:60px; height:60px"/>
+                        </button>
                     </div>
                 </div>
             </div>
+            </div>
+    </div>
+
+    <div class="container">
+        <div class="row " style="float:right ">
+            <div class="col text-center mx-0 mt-5">
+            <h3>빠른 매장 찾기</h3>
+                <hr/>
+            <a href="#"><img src="{% static 'img/image1.png' %}" style="width:60px; height:60px"/></a>
+            <a href="#"><img src="{% static 'img/image2.png' %}" style="width:60px; height:60px"/></a>
+            <a href="#"><img src="{% static 'img/image3.png' %}" style="width:60px; height:60px"/></a>
+            <a href="#"><img src="{% static 'img/image4.png' %}" style="width:60px; height:60px"/></a>
+            <a href="#"><img src="{% static 'img/image5.png' %}" style="width:60px; height:60px"/></a>
+            </div>
+        </div>
     </div>
     <!-- 스크립트 및 사용자 정의 스크립트 추가 -->
 <script>
