@@ -1,0 +1,22 @@
+{% extends "thru/thru_detail.html" %}
+{% block main_area %}
+<div class="row">
+    {% for s in starbucks %}
+        <div class="card col-6">
+            <div class="card-body">
+                <h2>매장 정보</h2>
+                <p>매장명: {{ s.name }}</p>
+                <p>위치: {{ s.addr1 }}</p>
+                <p>전화번호: {{ s.phone }} 별점: {{ s.star }}</p>
+                <button class="btn btn-primary btn-detail"
+                        data-lat="{{ s.addrx }}" data-lng="{{ s.addry }}"
+                        data-name="{{ s.name }}" data-addr1="{{ s.addr1 }}" data-phone="{{ s.phone }}">상세보기</button>
+
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
+</div>
+

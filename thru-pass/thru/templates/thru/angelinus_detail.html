@@ -1,0 +1,19 @@
+{% extends "thru/thru_detail.html" %}
+{% block main_area %}
+<div class = "container">
+    <div class="row">
+        {% for a in angel %}
+            <div class="card col-6">
+                <div class="card-body">
+                    <h2>매장 정보</h2>
+                    <p>매장명: {{ a.name }}</p>
+                    <p>위치: {{ a.addr1 }}</p>
+                    <p>전화번호: {{ a.phone }} 별점: {{ a.star }}</p>
+                    <button class="btn btn-primary btn-detail" data-lat="{{ a.addrx }}" data-lng="{{ a.addry }}"
+                            data-name="{{ a.name }}" data-addr1="{{ a.addr1 }}" data-phone="{{ a.phone }}">상세보기</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

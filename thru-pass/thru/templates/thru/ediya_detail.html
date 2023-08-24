@@ -1,0 +1,18 @@
+{% extends "thru/thru_detail.html" %}
+{% block main_area %}
+<div class = "container">
+    <div class="row">
+        {% for e in ediya %}
+            <div class="card col-6">
+                    <h2>매장 정보</h2>
+                    <p>매장명: {{ e.name }}</p>
+                    <p>위치: {{ e.addr1 }}</p>
+                    <p>전화번호: {{ e.phone }} 별점: {{ e.star }}</p>
+                    <button class="btn btn-primary btn-detail" data-lat="{{ e.addrx }}" data-lng="{{ e.addry }}"
+                            data-name="{{ e.name }}" data-addr1="{{ e.addr1 }}" data-phone="{{ e.phone }}">상세보기</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
