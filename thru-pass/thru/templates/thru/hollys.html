@@ -1,0 +1,19 @@
+{% extends "thru/thru_detail.html" %}
+{% block main_area %}
+<div class = "container">
+    <div class="row">
+        {% for h in hollys %}
+            <div class="card col-6">
+                <div class="card-body">
+                    <h2>매장 정보</h2>
+                    <p>매장명: {{ h.name }}</p>
+                    <p>위치: {{ h.addr1 }}</p>
+                    <p>전화번호: {{ h.phone }} 별점: {{ h.star }}</p>
+                    <button class="btn btn-primary btn-detail" data-lat="{{ h.addrx }}" data-lng="{{ h.addry }}"
+                            data-name="{{ h.name }}" data-addr1="{{ h.addr1 }}" data-phone="{{ h.phone }}">상세보기</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
