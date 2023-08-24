@@ -17,6 +17,8 @@ class Angelinus(models.Model):
         managed = False
         db_table = 'angelinus'
 
+
+
 class Burgerking(models.Model):
     num = models.AutoField(primary_key=True)
     name = models.CharField(max_length=25)
@@ -29,6 +31,7 @@ class Burgerking(models.Model):
     class Meta:
         managed = False
         db_table = 'burgerking'
+
 
 class Ediya(models.Model):
     num = models.AutoField(primary_key=True)
