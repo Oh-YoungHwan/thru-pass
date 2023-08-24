@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=v6igpcd3t8&submodules=geocoder"></script>
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+</head>
+<body>
+<div class="search">
+    <input id="address" type="text" placeholder="검색할 주소">
+    <input id="submit" type="button" value="주소검색">
+</div>
+<div id="placeinfowindow" class="PlaceInfoWindow InfoWindow PlaceInfoWindow-withoutmin PlaceInfoWindow-withimg">
+</div>
+<div id="map" style="width:1000px;height:500px;"></div>
+<div>
+    <table>
+       <thead>
+          <tr>
+             <th>주소</th>
+             <th>위도</th>
+             <th>경도</th>
+          </tr>
+       </thead>
+       <tbody id="mapList"></tbody>
+    </table>
+</div>
+<div class="container">
+</div>
+</body>
+<script>
+
+selectMapList();
+
+function searchAddressToCoordinate(address) {
+    naver.maps.Service.geocode({
+        query: address
+    }, function(status, response) {
+        if (status === naver.maps.Service.Status.ERROR) {
+            return alert('Something Wrong!');
+        }
+        if (response.v2.meta.totalCount === 0) {
+            return alert('올바른 주소를 입력해주세요.');
+        }
+        var htmlAddresses = [],
+            item = response.v2.addresses[0],
+            point = new naver.maps.Point(item.x, item.y);
+        if (item.roadAddress) {
+            htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
+        }
+        if (item.jibunAddress) {
+            htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
+        }
+        if (item.englishAddress) {
+            htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
+        }
+        insertAddress(item.roadAddress, item.x, item.y);
+    });
+}
+
+$('#address').on('keydown', function(e) {
+    var keyCode = e.which;
+    if (keyCode === 13) { // Enter Key
+        searchAddressToCoordinate($('#address').val());
+    }
+});
+$('#submit').on('click', function(e) {
+    e.preventDefault();
+    searchAddressToCoordinate($('#address').val());
+    mc
+});
+naver.maps.Event.once(map, 'init_stylemap', initGeocoder);
+
+function insertAddress(address, latitude, longitude) {
+    var mapList = "";
+    mapList += "<tr>"
+    mapList += "   <td>" + address + "</td>"
+    mapList += "   <td>" + latitude + "</td>"
+    mapList += "   <td>" + longitude + "</td>"
+    mapList += "</tr>"
+
+    $('#mapList').append(mapList);
+    let infowindow = new naver.maps.InfoWindow({
+    content:
+      `<div style="width: 50px;height: 20px;text-align: center">
+       <p>{{mcs.1.addrx}}</p>
+      </div>`,
+    });
+
+    var map = new naver.maps.Map('map', {
+        center: new naver.maps.LatLng(longitude, latitude),
+        zoom: 14
+    });
+
+    var marker = new naver.maps.Marker({
+        map: map,
+        position: new naver.maps.LatLng(longitude, latitude),
+    });
+    var mcs = "{{mcs}}".replace(/&#x27;/g,"\"");
+    var mcData = JSON.parse(mcs);
+    var arr = [];
+    var a = 0;
+    for(var i = 0; Object.keys(mcData).length;i++){
+       a = Math.abs(longitude - mcData[i].addrx) + Math.abs(latitude - mcData[i].addry);
+       arr[i] = a;
+       document.write(arr[i]+"<br>");
+       a = 0;
+    }
+
+    var marker1 = new naver.maps.Marker({
+        map: map,
+        position: new naver.maps.LatLng(mcData[1].addrx, mcData[1].addry),
+    });
+
+    var marker2 = new naver.maps.Marker({
+        map: map,
+        position: new naver.maps.LatLng(mcData[2].addrx, mcData[2].addry),
+    });
+
+    naver.maps.Event.addListener(marker, "click", function () {
+    console.log(infowindow.getMap()); // 정보창이 열려있을 때는 연결된 지도를 반환하고 닫혀있을 때는 null을 반환
+    if (infowindow.getMap())
+    {
+       infowindow.close();
+    }
+    else {
+        infowindow.open(map, marker);
+       }
+    });
+};
+
+function selectMapList() {
+    var map = new naver.maps.Map('map', {
+        center: new naver.maps.LatLng(37.3595704, 127.105399),
+        zoom: 10
+    });
+}
+
+function moveMap(len, lat) {
+    var mapOptions = {
+           center: new naver.maps.LatLng(len, lat),
+           zoom: 15,
+           mapTypeControl: true
+       };
+    var map = new naver.maps.Map('map', mapOptions);
+    var marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(len, lat),
+        map: map
+    });
+}
+</script>
+
+<script>
+var cityhall = new naver.maps.LatLng(37.5666805, 126.9784147);
+
+var map = new naver.maps.Map('map', {
+    center: new naver.maps.LatLng(lat, lng),
+    zoom: 10
+});
+
+var contentString = [
+    '<div class="iw_inner">',
+    '   <h3>서울특별시청</h3>',
+    '   <p>서울특별시 중구 태평로1가 31 | 서울특별시 중구 세종대로 110 서울특별시청<br>',
+    '       <img src="./img/hi-seoul.jpg" width="55" height="55" alt="서울시청" class="thumb" /><br>',
+    '       02-120 | 공공,사회기관 > 특별,광역시청<br>',
+    '       <a href="http://www.seoul.go.kr" target="_blank">www.seoul.go.kr/</a>',
+    '   </p>',
+    '</div>'
+].join('');
+
+var marker = new naver.maps.Marker({
+    map: map,
+    position: cityhall
+});
+
+var infowindow = new naver.maps.InfoWindow({
+    content: contentString
+});
+
+naver.maps.Event.addListener(marker, "click", function(e) {
+    if (infowindow.getMap()) {
+        infowindow.close();
+    } else {
+        infowindow.open(map, marker);
+    }
+});
+</script>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+<script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+<py-script>
+print("hello")
+</py-script>
+</html>
