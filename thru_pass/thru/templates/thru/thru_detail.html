@@ -39,18 +39,39 @@
         right: 15px;
     }
 
+    }
+    .scroll-container {
+        width: 100%;
+        height: 350px; /* 스크롤 가능한 높이 지정 */
+        overflow-y: scroll;
+        position: relative;
+    }
+
+    .fixed-div {
+        position: sticky;
+        top: 0;
+        background-color: #f0f0f0;
+        padding: 1px;
+        z-index:10
+    }
+
 </style>
 <body>
-{% include "thru/navbar.html" %}
 
-<div class="container">
-    <div class="mb-3">
-        <div id="map" style="width:100%;height:500px; border: 1px float: left; width: 100%;"></div>
+    {% include "thru/navbar.html" %}
+        {% if search_info %}
+            <small class="text-muted">{{ search_info }}</small>
+        {% endif %}
+<div class="fixed-div">
+    <div class="container">
 
+    <div class="fixed-div">
+        <div id="map" style="width:100%;height:600px; border: 1px float: left; width: 100%;"></div>
         <div class="background" onclick="hide()"></div>
-
+    </div>
 
         <script>
+
             var mapOptions = {                                                       <!-- 초기 지도 설정 옵션 -->
                 center: new naver.maps.LatLng(37.3595704, 127.105399),               <!-- 초기 지도 중심 좌표 설정 -->
                 zoom: 10                                                             <!-- 초기 지도 확대 레벨 설정 -->
@@ -73,10 +94,14 @@
                 map = new naver.maps.Map('map', mapOptions);
 
                 var markerOptions = {
-                    position: new naver.maps.LatLng(lat, lng),
-                    map: map
-
+                position: new naver.maps.LatLng(lat, lng),
+                map: map,
+                icon: {
+                    url: 'main.png',
+                    size: { width: 50, height: 50 }
+                    }
                 };
+
                 var marker = new naver.maps.Marker(markerOptions);
 
                 var infowindow = new naver.maps.InfoWindow({
@@ -112,10 +137,13 @@
                 });
             });
 
+
+
+
         </script>
-    </div>
 </div>
-<hr/>
+</div>
+<br>
 {% block main_area %}
 {% endblock %}
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
