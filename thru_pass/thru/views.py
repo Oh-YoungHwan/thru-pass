@@ -79,6 +79,6 @@ def detail(request):
 
     return render(request, "thru/detail.html", {"mcs": mcs, "tws": tws, "sts": sts, "pas": pas,
                                             "los": los, "kfs": kfs, "hos": hos, "eds": eds,
-                                            "ans": ans, "bus": bus, "shopselect":page_obj})
+                                            "ans": ans, "bus": bus, "shopselect":shopselect})
 
 
