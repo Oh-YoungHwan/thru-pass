@@ -6,8 +6,10 @@
 //지도를 그려주는 함수 실행
 selectMapList();
 
-
-
+$('#reset').on('click', function(e){
+	selectMapList();
+	event.preventDefault();
+});
 function selectMapList() {
 
     let markers = new Array();
@@ -30,7 +32,7 @@ function selectMapList() {
 
         var marker = new naver.maps.Marker({
 	    map: map,
-<!--	    title.ssData[i].name,-->
+
 	    position: new naver.maps.LatLng(ssData[i].addrx, ssData[i].addry),
         });
 
@@ -63,36 +65,42 @@ function selectMapList() {
     }
 }
 </script>
-<div class = "col-sm-4">
-    <div class="scroll-container-2" style="height:600px; overflow: scroll;">
+    <div class="scroll-container-2" style="height:600px; width:100%; overflow: scroll;">
         {% for m in shopselect %}
-            <div class="container-4">
-                <div class="card" style="height: 250px;">
-                <div class="card-body">
-                    <p>매장명: {{ m.name }}</p>
-                    <p>위치: {{ m.addr1 }}</p>
-                    <p>전화번호: {{ m.phone }} 별점: {{ m.star }}</p>
-                    <button class="btn btn-primary btn-detail" data-lat="{{ m.addrx }}" data-lng="{{ m.addry }}"
-                            data-name="{{ m.name }}" data-addr1="{{ m.addr1 }}" data-phone="{{ m.phone }}">상세보기</button>
+                <div class="card border-secondary mb-3"  style="height: 170px; width:100%; ">
+                <div lascs="card-body" style=" width:100% ;font-size: 15px; ">
+                    <div class="container">
+                        <div class="col">
+                            <div class="card-header"><b>매장명: {{ m.name }}</b></div>
+                        </div>
+                        <div class="col">
+                            <p>위치: {{ m.addr1 }}</p>
+                        </div>
+                        <div class="col">
+                            <p>전화번호: {{ m.phone }}</p>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <p>별점: {{ m.star }}</p>
+                            </div>
+                            <div class="col-8 float-end">
+                                <button class="btn btn-primary btn-detail float-end" style="font-size:8px; width:30%; height:30px; padding: 0px 0px 0px 10px;  " data-lat="{{ m.addrx }}" data-lng="{{ m.addry }}"
+                                data-name="{{ m.name }}" data-addr1="{{ m.addr1 }}" data-phone="{{ m.phone }}">상세위치</button>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 </div>
-            </div>
         {% endfor %}
-    </div>
-    <div class="pagination">
-    <span class="step-links">
-        {% if shopselect.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ shopselect.previous_page_number }}">previous</a>
-        {% endif %}
-        <span class="current-page">
-            Page {{ shopselect.number }} of {{ shopselect.paginator.num_pages }}.
-        </span>
-        {% if shopselect.has_next %}
-            <a href="?page={{ shopselect.next_page_number }}">next</a>
-            <a href="?page={{ shopselect.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-    </div>
+
 </div>
+<button class="btn btn-primary float-end bt-5 " id="reset" style="font-size:13px; width:40%; padding: 0px 0px 0px 10px;  height:30px;">전체 보기</button>
+ <button class="btn-open-popup btn btn-primary float-end bt-5 " style="font-size:13px; width:40%; padding: 0px 0px 0px 10px;  height:30px;">메뉴</button>
+<script>
+    $('#reset').on('click', function(e){
+	selectMapList();
+	event.preventDefault();
+});
+</script>
 {% endblock %}

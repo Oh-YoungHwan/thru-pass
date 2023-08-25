@@ -1,0 +1,35 @@
+{% block sub_area %}
+    <div class="modal">
+        <div class="modal_body">
+
+        <div class="section">
+            <input type="radio" name="slide" id="slide01" checked>
+            <input type="radio" name="slide" id="slide02">
+            <input type="radio" name="slide" id="slide03">
+            <div class="slidewrap">
+                <ul class="slidelist">
+                    <li>
+                        <a>
+                            <label for="slide03" class="left"></label>
+                            <img src="{% static 'img/star_menu1.png' %}" style="width:500px; height:600px"/>
+                            <label for="slide02" class="right"></label>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <label for="slide01" class="left"></label>
+                            <img src="{% static 'img/star_menu2.png' %}" style="width:500px; height:600px"/>
+                            <label for="slide03" class="right"></label>
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            <label for="slide02" class="left"></label>
+                            <img src="{% static 'img/star_menu3.png' %}" style="width:500px; height:600px"/>
+                            <label for="slide01" class="right"></label>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+            {% endblock %}
