@@ -1,87 +1,84 @@
 from django.shortcuts import render
 from .models import Thru, Pascucci,Starbucks, Twosomeplace, Burgerking, Hollys, Ediya, Kfc, Lotteria, Mcdonalds,Angelinus
-from . import models
 from django.views.generic import ListView
 from django.core.paginator import Paginator
-from django.shortcuts import render
-# Create your views here.
+
 class ThruMain(ListView):
     model = Thru
     template_name = "thru/thru_main.html"
 
+class PostSearch(ListView):
+    # PostSearch에서는 검색된 결과를 한페이지에 보여주기 위하여 None으로 설정
+    pagenate_by = None
 
-def ThruDetail_pascucci(request):
-    pascucci = Pascucci.objects.all()  # 데이터베이스에서 모든 Pascucci 위치 정보 가져오기
-    paginator = Paginator(pascucci, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, "thru/pascucci_detail.html", {'pascucci' : page_obj})
-def ThruDetail_starbucks(request):
-    starbucks = Starbucks.objects.all()
-    paginator = Paginator(starbucks, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, "thru/starbucks_detail.html", {'starbucks' : page_obj})
+def detail(request):
 
+    mcs = Mcdonalds.objects.all()
+    mcs = [mcdonalds.mc_json() for mcdonalds in mcs]
 
-def ThruDetail_twosome(request):
-    twosome = Twosomeplace.objects.all()
-    paginator = Paginator(twosome, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, "thru/twosome_detail.html", {'twosome' : page_obj})
+    tws = Twosomeplace.objects.all()
+    tws = [twosome.to_json() for twosome in tws]
 
-def ThruDetail_burgerking(request):
-    burgerk = Burgerking.objects.all()
-    paginator = Paginator(burgerk, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, "thru/burgerk_detail.html", {'burgerk' : page_obj})
+    sts = Starbucks.objects.all()
+    sts = [starbucks.st_json() for starbucks in sts]
 
+    pas = Pascucci.objects.all()
+    pas = [pascucci.pa_json() for pascucci in pas]
 
-def ThruDetail_angel(request):
-    angel = Angelinus.objects.all()
-    paginator = Paginator(angel, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, "thru/angelinus_detail.html", {'angel' : page_obj})
+    los = Lotteria.objects.all()
+    los = [lotteria.lo_json() for lotteria in los]
 
-def ThruDetail_ediya(request):
-    ediya = Ediya.objects.all()
-    paginator = Paginator(ediya, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, "thru/ediya_detail.html", {'ediya' : page_obj})
+    kfs = Kfc.objects.all()
+    kfs = [kfc.kf_json() for kfc in kfs]
+
+    hos = Hollys.objects.all()
+    hos = [hollys.ho_json() for hollys in hos]
+
+    eds = Ediya.objects.all()
+    eds = [ediya.ed_json() for ediya in eds]
+
+    ans = Angelinus.objects.all()
+    ans = [angelinus.an_json() for angelinus in ans]
+
+    bus = Burgerking.objects.all()
+    bus = [burgerking.bu_json() for burgerking in bus]
 
 
-def ThruDetail_hollys(request):
-    hollys = Hollys.objects.all()
-    paginator = Paginator(hollys, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, "thru/hollys_detail.html", {'hollys' : page_obj})
+    shopselect = request.GET.get('test')
+
+    if shopselect == "mcs":
+        shopselect = mcs
+
+    if shopselect == "los":
+        shopselect = los
+
+    if shopselect == "bus":
+        shopselect = bus
+
+    if shopselect == "kfs":
+        shopselect = kfs
+
+    if shopselect == "tws":
+        shopselect = tws
+
+    if shopselect == "sts":
+        shopselect = sts
+
+    if shopselect == "pas":
+        shopselect = pas
+
+    if shopselect == "hos":
+        shopselect = hos
+
+    if shopselect == "eds":
+        shopselect = eds
+
+    if shopselect == "ans":
+        shopselect = ans
 
 
-def ThruDetail_kfc(request):
-    kfc = Kfc.objects.all()
-    paginator = Paginator(kfc, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, "thru/kfc_detail.html", {'kfc' : page_obj})
-
-def ThruDetail_mcdo(request):
-    mcdo = Mcdonalds.objects.all()
-    paginator = Paginator(mcdo, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, "thru/mcdonalds_detail.html", {'mcdo' : page_obj})
-
-def ThruDetail_lotte(request):
-    lotte = Lotteria.objects.all()
-    paginator = Paginator(lotte, 10)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, "thru/lotteria_detail.html", {'lotte' : page_obj})
-
+    return render(request, "thru/detail.html", {"mcs": mcs, "tws": tws, "sts": sts, "pas": pas,
+                                            "los": los, "kfs": kfs, "hos": hos, "eds": eds,
+                                            "ans": ans, "bus": bus, "shopselect":page_obj})
 
 
